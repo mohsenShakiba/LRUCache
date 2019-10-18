@@ -10,50 +10,59 @@ namespace AdvancedCache
     {
 
         private ICacheStore cacheStore;
+        private AdvancedCacheOptions options;
 
         public AdvancedCache()
         {
-            cacheStore = new HashMemoryCacheStore();
+            options = new AdvancedCacheOptions();
+            cacheStore = new LRUCacheStore(options.MaxSize);
+        }
+
+        public AdvancedCache(AdvancedCacheOptions options, ICacheStore cacheStore)
+        {
+            this.options = options;
+            this.cacheStore = cacheStore;
         }
 
         public void AddEntry(string key, object value, TimeSpan validUntil)
         {
-            throw new NotImplementedException();
+            var cacheEntry = new CacheEntry(key, value, validUntil);
+            cacheStore.AddEntry(cacheEntry);
         }
 
         public void ClearEntries()
         {
-            throw new NotImplementedException();
+            cacheStore.Clear();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            cacheStore.Dispose();
         }
 
-        public IEnumerator<object> GetEnumerator()
+        public T GetValue<T>(string key, T defaultValue = default)
         {
-            throw new NotImplementedException();
+            var entry = cacheStore.GetEntry(key);
+            if (entry == null)
+                return default;
+            return (T)entry.Value;
         }
 
-        public T GetValue<T>(string key, T defaultValue)
+        public void RemoveEntry(string key)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveEntry(string key)
-        {
-            throw new NotImplementedException();
+            cacheStore.RemoveEntry(key);
         }
 
         public bool TryGetValue<T>(string key, out T value)
         {
-            throw new NotImplementedException();
+            var result = GetValue<T>(key);
+            value = result;
+            return result != default;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (cacheStore as IEnumerable).GetEnumerator();
         }
     }
 }

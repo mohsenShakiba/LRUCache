@@ -62,6 +62,10 @@ namespace AdvancedCache
             }
         }
 
+        public void Dispose()
+        {
+        }
+
         public CacheEntry GetEntry(string key)
         {
             wrLock.EnterUpgradeableReadLock();

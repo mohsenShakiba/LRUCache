@@ -5,10 +5,10 @@ using System.Text;
 
 namespace AdvancedCache.Abstractions
 {
-    public interface IAdvancedCache: IEnumerable<object>, IDisposable
+    public interface IAdvancedCache: IEnumerable, IDisposable
     {
         void AddEntry(string key, object value, TimeSpan validUntil);
-        bool RemoveEntry(string key);
+        void RemoveEntry(string key);
         void ClearEntries();
         bool TryGetValue<T>(string key, out T value);
         T GetValue<T>(string key, T defaultValue);
