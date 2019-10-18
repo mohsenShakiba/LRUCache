@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedCache", "src\AdvancedCache\AdvancedCache.csproj", "{181AA374-44AB-44E9-AFA2-F30A22A97B37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedCache", "src\AdvancedCache\AdvancedCache.csproj", "{181AA374-44AB-44E9-AFA2-F30A22A97B37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedCacheTestConsole", "src\AdvancedCacheTestConsole\AdvancedCacheTestConsole.csproj", "{3721C9C0-6D44-4BFB-8D61-F6109E2CED45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedCacheTestConsole", "src\AdvancedCacheTestConsole\AdvancedCacheTestConsole.csproj", "{3721C9C0-6D44-4BFB-8D61-F6109E2CED45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedCache.Tests", "src\AdvancedCache.Tests\AdvancedCache.Tests.csproj", "{00ABA1C0-96EB-46C4-8850-656926C5B1D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3721C9C0-6D44-4BFB-8D61-F6109E2CED45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3721C9C0-6D44-4BFB-8D61-F6109E2CED45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3721C9C0-6D44-4BFB-8D61-F6109E2CED45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00ABA1C0-96EB-46C4-8850-656926C5B1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00ABA1C0-96EB-46C4-8850-656926C5B1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00ABA1C0-96EB-46C4-8850-656926C5B1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00ABA1C0-96EB-46C4-8850-656926C5B1D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

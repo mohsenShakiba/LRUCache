@@ -48,6 +48,11 @@ namespace AdvancedCache
             return GetHashCode() == other.GetHashCode();
         }
 
+        public override int GetHashCode()
+        {
+            return this.GetHashCode(this);
+        }
+
         public int GetHashCode(CacheEntry obj)
         {
             return Key
