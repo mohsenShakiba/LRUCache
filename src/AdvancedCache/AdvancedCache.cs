@@ -6,27 +6,22 @@ using System.Text;
 
 namespace AdvancedCache
 {
-    class AdvancedCache : IAdvancedCache
+    public class AdvancedCache : IAdvancedCache
     {
 
         private ICacheStore cacheStore;
         private AdvancedCacheOptions options;
 
-        public AdvancedCache()
+        public AdvancedCache(AdvancedCacheOptions options = null, ICacheStore cacheStore = null)
         {
-            options = new AdvancedCacheOptions();
-            cacheStore = new LRUCacheStore(options.MaxSize);
+            this.options = options ?? new AdvancedCacheOptions();
+            this.cacheStore = cacheStore ?? new LRUCacheStore(this.options.MaxSize);
         }
 
-        public AdvancedCache(AdvancedCacheOptions options, ICacheStore cacheStore)
+        public void AddEntry(string key, object value, TimeSpan? validUntil = null)
         {
-            this.options = options;
-            this.cacheStore = cacheStore;
-        }
-
-        public void AddEntry(string key, object value, TimeSpan validUntil)
-        {
-            var cacheEntry = new CacheEntry(key, value, validUntil);
+            var expiration = validUntil ?? TimeSpan.FromDays(1000);
+            var cacheEntry = new CacheEntry(key, value, expiration);
             cacheStore.AddEntry(cacheEntry);
         }
 

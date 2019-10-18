@@ -21,6 +21,7 @@ namespace AdvancedCache
             
             wrLock = new ReaderWriterLockSlim();
             MaxSize = maxSize;
+            cacheEntries = new LRUCollection<CacheEntry>(maxSize);
         }
 
         public void AddEntry(CacheEntry cacheEntry)
@@ -72,6 +73,11 @@ namespace AdvancedCache
             try
             {
                 var cacheEntry = cacheEntries.Get(key);
+                // check if null
+                if (cacheEntry == null)
+                {
+                    return null;
+                }
                 // check if entry has expired
                 if (cacheEntry.HasExpired)
                 {

@@ -22,17 +22,10 @@ namespace AdvancedCache
 
         public IDataPersist DataPersist { get; }
 
-        public AdvancedCacheOptions()
-        {
-            MaxSize = int.MaxValue;
-            HashCodeGenerator = (key) =>  key.ToLower().GetHashCode();
-            DataPersist = null;
-        }
-
-        public AdvancedCacheOptions(int maxSize, Func<string, int> hashCodeGenerator, IDataPersist dataPersist)
+        public AdvancedCacheOptions(int maxSize = int.MaxValue, Func<string, int> hashCodeGenerator = null, IDataPersist dataPersist = null)
         {
             MaxSize = maxSize;
-            HashCodeGenerator = hashCodeGenerator;
+            HashCodeGenerator = hashCodeGenerator ?? ((key) => key.ToLower().GetHashCode());
             DataPersist = dataPersist;
         }
     }

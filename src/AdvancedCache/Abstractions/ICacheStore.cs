@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AdvancedCache.Abstractions
 {
-    interface ICacheStore: IEnumerable, IDisposable
+    public interface ICacheStore: IEnumerable, IDisposable
     {
         void AddEntry(CacheEntry cacheEntry);
         void Clear();
