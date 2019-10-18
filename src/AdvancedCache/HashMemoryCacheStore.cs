@@ -1,4 +1,4 @@
-﻿using AdvancedCache.Abstractions;
+﻿/*using AdvancedCache.Abstractions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,6 +38,19 @@ namespace AdvancedCache
             finally
             {
                 wrLock.ExitWriteLock();
+            }
+        }
+
+        public int Count()
+        {
+            wrLock.EnterReadLock();
+            try
+            {
+                return hashtable.Count;
+            }
+            finally
+            {
+                wrLock.ExitReadLock();
             }
         }
 
@@ -81,3 +94,4 @@ namespace AdvancedCache
         }
     }
 }
+*/

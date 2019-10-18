@@ -1,10 +1,11 @@
-﻿using System;
+﻿using AdvancedCache.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AdvancedCache
 {
-    public class CacheEntry : IEquatable<CacheEntry>, IEqualityComparer<CacheEntry>
+    public class CacheEntry : IEquatable<CacheEntry>, IEqualityComparer<CacheEntry>, IIdentifiedModel
     {
 
         public string Key { get; }
