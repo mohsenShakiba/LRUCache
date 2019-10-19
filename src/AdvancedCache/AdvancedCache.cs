@@ -15,13 +15,14 @@ namespace AdvancedCache
         public AdvancedCache(AdvancedCacheOptions options = null, ICacheStore cacheStore = null)
         {
             this.options = options ?? new AdvancedCacheOptions();
-            this.cacheStore = cacheStore ?? new LRUCacheStore(this.options.MaxSize);
+            this.cacheStore = cacheStore ?? new LRUCacheStore(this.options);
         }
 
         public void AddEntry(string key, object value, TimeSpan? validUntil = null)
         {
             var expiration = validUntil ?? TimeSpan.FromDays(1000);
-            var cacheEntry = new CacheEntry(key, value, expiration);
+            var indentifier = new CacheEntryIdentifier(key, options);
+            var cacheEntry = new CacheEntry(indentifier, value, expiration);
             cacheStore.AddEntry(cacheEntry);
         }
 

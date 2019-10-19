@@ -8,20 +8,20 @@ using System.Threading;
 
 namespace AdvancedCache
 {
-    class LRUCacheStore : ICacheStore
+    public class LRUCacheStore : ICacheStore
     {
         // maximum size of the store
         // after which the data that is least used will be dropped
-        private readonly int MaxSize;
         private readonly LRUCollection<CacheEntry> cacheEntries;
         private readonly ReaderWriterLockSlim wrLock;
+        private readonly AdvancedCacheOptions options;
 
-        public LRUCacheStore(int maxSize)
+        public LRUCacheStore(AdvancedCacheOptions options)
         {
             
             wrLock = new ReaderWriterLockSlim();
-            MaxSize = maxSize;
-            cacheEntries = new LRUCollection<CacheEntry>(maxSize);
+            cacheEntries = new LRUCollection<CacheEntry>(options.MaxSize);
+            this.options = options;
         }
 
         public void AddEntry(CacheEntry cacheEntry)
@@ -72,7 +72,8 @@ namespace AdvancedCache
             wrLock.EnterUpgradeableReadLock();
             try
             {
-                var cacheEntry = cacheEntries.Get(key);
+                var identifier = new CacheEntryIdentifier(key, options);
+                var cacheEntry = cacheEntries.Get(identifier);
                 // check if null
                 if (cacheEntry == null)
                 {
@@ -84,7 +85,7 @@ namespace AdvancedCache
                     wrLock.EnterWriteLock();
                     try
                     {
-                        cacheEntries.Remove(cacheEntry.Key);
+                        cacheEntries.Remove(identifier);
                         return null;
                     }
                     finally
@@ -123,7 +124,8 @@ namespace AdvancedCache
             wrLock.EnterWriteLock();
             try
             {
-                cacheEntries.Remove(key);
+                var identifier = new CacheEntryIdentifier(key, options);
+                cacheEntries.Remove(identifier);
             }
             finally
             {

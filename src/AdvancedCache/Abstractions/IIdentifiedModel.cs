@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AdvancedCache.Abstractions
 {
-    interface IIdentifiedModel
+    public interface IIdentifiedModel
     {
-        string Key { get; }
+        CacheEntryIdentifier Identifier { get; }
     }
 }

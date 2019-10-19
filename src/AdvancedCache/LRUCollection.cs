@@ -10,16 +10,16 @@ namespace AdvancedCache
     /// a collection that performs add/remove/find operations in O(1)
     /// while also retains the order of items based on their usage
     /// </summary>
-    class LRUCollection<T> : IEnumerable<T> where T: IIdentifiedModel
+    public class LRUCollection<T> : IEnumerable<T> where T: IIdentifiedModel
     {
         private readonly int maxCount;
         private readonly LinkedList<T> cacheEntriesList;
-        private readonly IDictionary<string, LinkedListNode<T>> cacheEntriesMap;
+        private readonly IDictionary<CacheEntryIdentifier, LinkedListNode<T>> cacheEntriesMap;
 
         public LRUCollection(int maxCount)
         {
             cacheEntriesList = new LinkedList<T>();
-            cacheEntriesMap = new Dictionary<string, LinkedListNode<T>>();
+            cacheEntriesMap = new Dictionary<CacheEntryIdentifier, LinkedListNode<T>>();
             this.maxCount = maxCount;
         }
 
@@ -27,7 +27,7 @@ namespace AdvancedCache
         {
             // if key exists, just remove it from list
             // because we want to add the fresh item to the start of the list
-            if (cacheEntriesMap.TryGetValue(item.Key, out var existingValue))
+            if (cacheEntriesMap.TryGetValue(item.Identifier, out var existingValue))
             {
                 cacheEntriesList.Remove(existingValue);
             }
@@ -38,10 +38,10 @@ namespace AdvancedCache
             }
             // else add it to the dict and linked list
             var node = cacheEntriesList.AddFirst(item);
-            cacheEntriesMap.Add(item.Key, node);
+            cacheEntriesMap[item.Identifier] = node;
         }
 
-        public T Get(string key)
+        public T Get(CacheEntryIdentifier key)
         {
             // if key exists, just move it to the start the line
             if (cacheEntriesMap.TryGetValue(key, out var value))
@@ -57,7 +57,7 @@ namespace AdvancedCache
             return cacheEntriesMap.Count;
         }
 
-        public void Remove(string key)
+        public void Remove(CacheEntryIdentifier key)
         {
             if (cacheEntriesMap.TryGetValue(key, out var value))
             {
@@ -92,7 +92,7 @@ namespace AdvancedCache
             // remove it from link list
             cacheEntriesList.Remove(lastItem);
             // remove it from dictionary
-            cacheEntriesMap.Remove(lastItem.Value.Key);
+            cacheEntriesMap.Remove(lastItem.Value.Identifier);
         }
 
         public IEnumerator<T> GetEnumerator()

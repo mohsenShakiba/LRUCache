@@ -7,26 +7,25 @@ namespace AdvancedCache
 {
     public class CacheEntry : IEquatable<CacheEntry>, IEqualityComparer<CacheEntry>, IIdentifiedModel
     {
-
-        public string Key { get; }
+        public CacheEntryIdentifier Identifier { get; }
         public object Value { get; }
         public DateTime ValidUntil { get; private set; }
         public bool HasExpired => DateTime.Now > ValidUntil;
 
         private readonly TimeSpan expirationPeriod;
 
-        public CacheEntry(string key, object value, TimeSpan expirationPeriod)
+        public CacheEntry(CacheEntryIdentifier identifier, object value, TimeSpan expirationPeriod)
         {
-            if (key == null)
-                throw new ArgumentNullException(nameof(key));
-            Key = key;
+            Identifier = identifier;
             Value = value;
             this.expirationPeriod = expirationPeriod;
             ValidUntil = DateTime.Now.Add(expirationPeriod);
         }
 
-        public CacheEntry(string key): this(key, null, TimeSpan.Zero)
+        public static CacheEntry New(string key, object value, TimeSpan timeSpan, AdvancedCacheOptions options = null)
         {
+            var indentifier = new CacheEntryIdentifier(key, options ?? new AdvancedCacheOptions());
+            return new CacheEntry(indentifier, value, timeSpan);
         }
 
         public void UpdateValidUntil()
@@ -50,14 +49,14 @@ namespace AdvancedCache
 
         public override int GetHashCode()
         {
-            return this.GetHashCode(this);
+            return GetHashCode(this);
         }
 
         public int GetHashCode(CacheEntry obj)
         {
-            return Key
-                .ToLower()
-                .GetHashCode();
+            return Identifier.Id;
         }
     }
+
+    
 }
