@@ -11,6 +11,7 @@ namespace AdvancedCache.Abstractions
         void RemoveEntry(string key);
         void ClearEntries();
         bool TryGetValue<T>(string key, out T value);
+        int Count();
         T GetValue<T>(string key, T defaultValue);
     }
 }

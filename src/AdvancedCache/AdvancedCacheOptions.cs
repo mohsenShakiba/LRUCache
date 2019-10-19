@@ -20,7 +20,7 @@ namespace AdvancedCache
         /// </summary>
         public Func<string, int> HashCodeGenerator { get; }
 
-        public IDataPersist DataPersist { get; }
+        public IDataPersist DataPersist { get; set; }
 
         public AdvancedCacheOptions(int maxSize = int.MaxValue, Func<string, int> hashCodeGenerator = null, IDataPersist dataPersist = null)
         {

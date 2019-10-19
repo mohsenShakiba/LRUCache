@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AdvancedCache
@@ -16,11 +17,25 @@ namespace AdvancedCache
         private readonly LinkedList<T> cacheEntriesList;
         private readonly IDictionary<CacheEntryIdentifier, LinkedListNode<T>> cacheEntriesMap;
 
-        public LRUCollection(int maxCount)
+        public LRUCollection(int maxCount, IEnumerable<T> initialEntries = null)
         {
+            if (maxCount <= 0)
+                throw new ArgumentException(nameof(maxCount));
             cacheEntriesList = new LinkedList<T>();
             cacheEntriesMap = new Dictionary<CacheEntryIdentifier, LinkedListNode<T>>();
             this.maxCount = maxCount;
+            SetInitialEntries(initialEntries);
+        }
+
+        private void SetInitialEntries(IEnumerable<T> initialEntries)
+        {
+            if (initialEntries == null || initialEntries.Count() == 0)
+                return;
+            foreach(var entry in initialEntries)
+            {
+                var node = cacheEntriesList.AddFirst(entry);
+                cacheEntriesMap[entry.Identifier] = node;
+            }
         }
 
         public void Add(T item)

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace AdvancedCache
 {
+    [Serializable]
     public struct CacheEntryIdentifier : IEquatable<CacheEntryIdentifier>
     {
         public int Id { get; }

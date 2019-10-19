@@ -5,20 +5,19 @@ using System.Text;
 
 namespace AdvancedCache
 {
+    [Serializable]
     public class CacheEntry : IEquatable<CacheEntry>, IEqualityComparer<CacheEntry>, IIdentifiedModel
     {
         public CacheEntryIdentifier Identifier { get; }
         public object Value { get; }
         public DateTime ValidUntil { get; private set; }
-        public bool HasExpired => DateTime.Now > ValidUntil;
-
-        private readonly TimeSpan expirationPeriod;
+        public TimeSpan ExpirationPeriod { get; }
 
         public CacheEntry(CacheEntryIdentifier identifier, object value, TimeSpan expirationPeriod)
         {
             Identifier = identifier;
             Value = value;
-            this.expirationPeriod = expirationPeriod;
+            this.ExpirationPeriod = expirationPeriod;
             ValidUntil = DateTime.Now.Add(expirationPeriod);
         }
 
@@ -30,7 +29,7 @@ namespace AdvancedCache
 
         public void UpdateValidUntil()
         {
-            ValidUntil = DateTime.Now.Add(expirationPeriod);
+            ValidUntil = DateTime.Now.Add(ExpirationPeriod);
         }
 
         public bool Equals(CacheEntry x, CacheEntry y)
@@ -56,7 +55,10 @@ namespace AdvancedCache
         {
             return Identifier.Id;
         }
+
+        public bool HasExpired() => DateTime.Now > ValidUntil;
+
     }
 
-    
+
 }

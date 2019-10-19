@@ -40,7 +40,7 @@ namespace AdvancedCache.Tests
         public void AddTimeSpan_MustNotExpire()
         {
             var cacheEntry = CacheEntry.New("KEY", "VALUE", TimeSpan.FromSeconds(1));
-            Assert.False(cacheEntry.HasExpired);
+            Assert.False(cacheEntry.HasExpired());
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace AdvancedCache.Tests
 
             Thread.Sleep(1500);
 
-            Assert.True(cacheEntry.HasExpired);
+            Assert.True(cacheEntry.HasExpired());
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace AdvancedCache.Tests
 
             cacheEntry.UpdateValidUntil();
 
-            Assert.False(cacheEntry.HasExpired);
+            Assert.False(cacheEntry.HasExpired());
         }
 
     }

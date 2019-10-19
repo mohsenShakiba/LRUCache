@@ -31,6 +31,11 @@ namespace AdvancedCache
             cacheStore.Clear();
         }
 
+        public int Count()
+        {
+            return cacheStore.Count();
+        }
+
         public void Dispose()
         {
             cacheStore.Dispose();

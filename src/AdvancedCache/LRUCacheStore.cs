@@ -20,8 +20,8 @@ namespace AdvancedCache
         {
             
             wrLock = new ReaderWriterLockSlim();
-            cacheEntries = new LRUCollection<CacheEntry>(options.MaxSize);
             this.options = options;
+            cacheEntries = new LRUCollection<CacheEntry>(options.MaxSize, options.DataPersist?.RestoreItems());
         }
 
         public void AddEntry(CacheEntry cacheEntry)
@@ -65,6 +65,11 @@ namespace AdvancedCache
 
         public void Dispose()
         {
+            if (options.DataPersist != null)
+            {
+                var list = cacheEntries.ToList();
+                options.DataPersist.StoreItems(list);
+            }
         }
 
         public CacheEntry GetEntry(string key)
@@ -80,7 +85,7 @@ namespace AdvancedCache
                     return null;
                 }
                 // check if entry has expired
-                if (cacheEntry.HasExpired)
+                if (cacheEntry.HasExpired())
                 {
                     wrLock.EnterWriteLock();
                     try
