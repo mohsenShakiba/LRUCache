@@ -1,24 +1,24 @@
-﻿using AdvancedCache.Abstractions;
+﻿using LRUCache.Abstractions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache
+namespace LRUCache
 {
-    public class AdvancedCache : IAdvancedCache
+    public class LRUCache : Abstractions.ILRUCache
     {
 
         private ICacheStore cacheStore;
-        private AdvancedCacheOptions options;
+        private LRUCacheOptions options;
 
-        public AdvancedCache(AdvancedCacheOptions options = null, ICacheStore cacheStore = null)
+        public LRUCache(LRUCacheOptions options = null, ICacheStore cacheStore = null)
         {
-            this.options = options ?? new AdvancedCacheOptions();
+            this.options = options ?? new LRUCacheOptions();
             this.cacheStore = cacheStore ?? new LRUCacheStore(this.options);
         }
 
-        public void AddEntry(string key, object value, TimeSpan? validUntil = null)
+        public void Add(string key, object value, TimeSpan? validUntil = null)
         {
             var expiration = validUntil ?? TimeSpan.FromDays(1000);
             var indentifier = new CacheEntryIdentifier(key, options);
@@ -26,7 +26,7 @@ namespace AdvancedCache
             cacheStore.AddEntry(cacheEntry);
         }
 
-        public void ClearEntries()
+        public void Clear()
         {
             cacheStore.Clear();
         }
@@ -49,7 +49,7 @@ namespace AdvancedCache
             return (T)entry.Value;
         }
 
-        public void RemoveEntry(string key)
+        public void Remove(string key)
         {
             cacheStore.RemoveEntry(key);
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache
+namespace LRUCache
 {
     [Serializable]
     public struct CacheEntryIdentifier : IEquatable<CacheEntryIdentifier>
@@ -10,7 +10,7 @@ namespace AdvancedCache
         public int Id { get; }
         public string Key { get; }
 
-        public CacheEntryIdentifier(string key, AdvancedCacheOptions options)
+        public CacheEntryIdentifier(string key, LRUCacheOptions options)
         {
             if (key == null)
                 throw new ArgumentNullException(nameof(key));
@@ -23,7 +23,7 @@ namespace AdvancedCache
         public CacheEntryIdentifier(string key)
         {
             Key = key;
-            Id = (new AdvancedCacheOptions()).HashCodeGenerator(key);
+            Id = (new LRUCacheOptions()).HashCodeGenerator(key);
         }
 
         public bool Equals(CacheEntryIdentifier other)

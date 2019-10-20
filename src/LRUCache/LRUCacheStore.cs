@@ -1,4 +1,4 @@
-﻿using AdvancedCache.Abstractions;
+﻿using LRUCache.Abstractions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace AdvancedCache
+namespace LRUCache
 {
     public class LRUCacheStore : ICacheStore
     {
@@ -14,9 +14,9 @@ namespace AdvancedCache
         // after which the data that is least used will be dropped
         private readonly LRUCollection<CacheEntry> cacheEntries;
         private readonly ReaderWriterLockSlim wrLock;
-        private readonly AdvancedCacheOptions options;
+        private readonly LRUCacheOptions options;
 
-        public LRUCacheStore(AdvancedCacheOptions options)
+        public LRUCacheStore(LRUCacheOptions options)
         {
             
             wrLock = new ReaderWriterLockSlim();

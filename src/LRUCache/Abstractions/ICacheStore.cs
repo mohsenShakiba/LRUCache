@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache.Abstractions
+namespace LRUCache.Abstractions
 {
     public interface ICacheStore: IEnumerable, IDisposable
     {

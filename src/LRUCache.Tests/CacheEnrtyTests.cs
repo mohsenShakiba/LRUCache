@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Xunit;
 
-namespace AdvancedCache.Tests
+namespace LRUCache.Tests
 {
     public class CacheEnrtyTests
     {

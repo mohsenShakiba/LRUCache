@@ -13,7 +13,7 @@ namespace AdvancedCache
         private readonly ReaderWriterLockSlim wrLock = new ReaderWriterLockSlim();
         private readonly Hashtable hashtable = new Hashtable();
 
-        public void AddEntry(CacheEntry cacheEntry)
+        public void Add(CacheEntry cacheEntry)
         {
             if (cacheEntry == null)
                 return;

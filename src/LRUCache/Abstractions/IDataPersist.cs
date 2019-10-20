@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache.Abstractions
+namespace LRUCache.Abstractions
 {
     /// <summary>
     /// and interface that is used to store and restore cache entries

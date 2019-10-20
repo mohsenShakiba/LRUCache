@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using Xunit;
 
-namespace AdvancedCache.Tests
+namespace LRUCache.Tests
 {
     public class LRUCacheStoreTests
     {
@@ -12,7 +12,7 @@ namespace AdvancedCache.Tests
         [Fact]
         public void ItemGet_ExpiredItemMustBeRemoved()
         {
-            var options = new AdvancedCacheOptions();
+            var options = new LRUCacheOptions();
             var store = new LRUCacheStore(options);
 
             var entry = CacheEntry.New("key", "value", TimeSpan.FromMilliseconds(500));
@@ -27,7 +27,7 @@ namespace AdvancedCache.Tests
         [Fact]
         public void ItemGet_ExpiryMustBeUpdated()
         {
-            var options = new AdvancedCacheOptions();
+            var options = new LRUCacheOptions();
             var store = new LRUCacheStore(options);
 
             var entry = CacheEntry.New("key", "value", TimeSpan.FromMilliseconds(1500));

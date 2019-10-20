@@ -1,9 +1,9 @@
-﻿using AdvancedCache.Abstractions;
+﻿using LRUCache.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache
+namespace LRUCache
 {
     [Serializable]
     public class CacheEntry : IEquatable<CacheEntry>, IEqualityComparer<CacheEntry>, IIdentifiedModel
@@ -21,9 +21,9 @@ namespace AdvancedCache
             ValidUntil = DateTime.Now.Add(expirationPeriod);
         }
 
-        public static CacheEntry New(string key, object value, TimeSpan timeSpan, AdvancedCacheOptions options = null)
+        public static CacheEntry New(string key, object value, TimeSpan timeSpan, LRUCacheOptions options = null)
         {
-            var indentifier = new CacheEntryIdentifier(key, options ?? new AdvancedCacheOptions());
+            var indentifier = new CacheEntryIdentifier(key, options ?? new LRUCacheOptions());
             return new CacheEntry(indentifier, value, timeSpan);
         }
 

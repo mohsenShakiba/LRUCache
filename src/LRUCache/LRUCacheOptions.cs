@@ -1,11 +1,11 @@
-﻿using AdvancedCache.Abstractions;
+﻿using LRUCache.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache
+namespace LRUCache
 {
-    public class AdvancedCacheOptions
+    public class LRUCacheOptions
     {
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace AdvancedCache
 
         public IDataPersist DataPersist { get; set; }
 
-        public AdvancedCacheOptions(int maxSize = int.MaxValue, Func<string, int> hashCodeGenerator = null, IDataPersist dataPersist = null)
+        public LRUCacheOptions(int maxSize = int.MaxValue, Func<string, int> hashCodeGenerator = null, IDataPersist dataPersist = null)
         {
             MaxSize = maxSize;
             HashCodeGenerator = hashCodeGenerator ?? ((key) => key.ToLower().GetHashCode());

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdvancedCache.Abstractions
+namespace LRUCache.Abstractions
 {
     public interface IIdentifiedModel
     {
