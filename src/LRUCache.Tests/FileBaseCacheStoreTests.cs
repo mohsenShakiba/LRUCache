@@ -5,17 +5,10 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace AdvancedCache.Tests
+namespace LRUCache.Tests
 {
-    public class FileBaseCacheStoreTests: IDisposable
+    public class FileBaseCacheStoreTests
     {
-
-        //private readonly string dummyDirectoryName = "dummy";
-
-        public FileBaseCacheStoreTests()
-        {
-            //Directory.CreateDirectory(dummyDirectoryName);
-        }
 
         private string DummyPath(string fileName)
         {
@@ -51,9 +44,5 @@ namespace AdvancedCache.Tests
             Assert.Equal(cacheEntry.ExpirationPeriod, cacheEntryRetrievedFromDist.ExpirationPeriod);
         }
 
-        public void Dispose()
-        {
-            //File.Delete(dummyDirectoryName);
-        }
     }
 }

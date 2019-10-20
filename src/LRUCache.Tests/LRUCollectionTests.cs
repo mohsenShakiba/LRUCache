@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace AdvancedCache.Tests
+namespace LRUCache.Tests
 {
     public class LRUCollectionTests
     {
@@ -31,6 +31,7 @@ namespace AdvancedCache.Tests
         /// <summary>
         /// in this test we check if we frequnetly access an object, it won't be replaced by other objects
         /// </summary>
+        [Fact]
         public void GetItem_MustMoveToStart()
         {
             var lruCollection = new LRUCollection<CacheEntry>(5);

@@ -1,11 +1,11 @@
-﻿using AdvancedCache.Abstractions;
+﻿using LRUCache.Abstractions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AdvancedCache
+namespace LRUCache
 {
     /// <summary>
     /// a collection that performs add/remove/find operations in O(1)
