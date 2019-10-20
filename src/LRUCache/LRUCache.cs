@@ -46,7 +46,14 @@ namespace LRUCache
             var entry = cacheStore.GetEntry(key);
             if (entry == null)
                 return default;
-            return (T)entry.Value;
+            try
+            {
+                return (T)entry.Value;
+            }
+            catch (InvalidCastException)
+            {
+                throw new InvalidCastException($"Cannot convert from {entry.Value.GetType()} to {typeof(T)}");
+            }
         }
 
         public void Remove(string key)
@@ -58,7 +65,7 @@ namespace LRUCache
         {
             var result = GetValue<T>(key);
             value = result;
-            return result != default;
+            return !value?.Equals(default(T)) ?? false;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
