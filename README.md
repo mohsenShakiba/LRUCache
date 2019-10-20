@@ -34,6 +34,7 @@ sets the value in the `out` paramter returning true if the key is found and fals
 clears entries in the store.
 - Count() => int
 
+
 returns the number of entries in the store.
 
 ## Options
